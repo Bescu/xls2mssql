@@ -2,7 +2,7 @@
 # coding=utf-8
 
 import sys, os, itertools, logging
-import sqlite3 as sqlite
+import adodbapi
 
 import xlrd
 
@@ -20,7 +20,7 @@ log.setLevel(logging.ERROR)
 #log.setLevel(logging.DEBUG)
 
 
-def xls2db(infile, outfile=None, column_name_start_row=0, data_start_row=1):
+def xls2mssql(infile, outfile, column_name_start_row=0, data_start_row=1):
     """
     Convert an xls file into an sqlite db!
     """
@@ -34,17 +34,15 @@ def xls2db(infile, outfile=None, column_name_start_row=0, data_start_row=1):
         raise TypeError("infile must be a string or xlrd.Book")
 
     #Now you can pass in a sqlite connection!
-    if outfile is None:
-        outfile = os.path.splitext(infile)[0] + '.sqlite'
 
     if isinstance(outfile, string_types):
-        db_conn = sqlite.connect(outfile)
+        db_conn = adodbapi.connect(outfile)
         db_cursor = db_conn.cursor()
-    elif isinstance(outfile, sqlite.Connection):
+    elif isinstance(outfile, adodbapi.Connection):
         db_conn = outfile
         db_cursor = db_conn.cursor()
     else:
-        raise TypeError("outfile must be a string or sqlite.Connection")
+        raise TypeError("outfile must be a string or adodbapi.Connection")
 
     # hack, avoid plac's annotations....
     column_name_start_row = int(column_name_start_row)
@@ -66,6 +64,7 @@ def xls2db(infile, outfile=None, column_name_start_row=0, data_start_row=1):
                     colname = '"col%d"' % (j + 1,)
                 # FIXME TODO deal with embedded spaces in names
                 # (requires delimited identifiers) and missing column types
+                colname += " VARCHAR(8000)"
                 column_names.append(colname)
 
             column_names = ','.join(column_names)

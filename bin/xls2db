@@ -11,5 +11,5 @@ if __name__ == "__main__":
 
     #Apparently this thing's pretty magical.
     import plac
-    from xls2db import xls2db
-    plac.call(xls2db, argv[1:])
+    from xls2mssql import xls2mssql
+    plac.call(xls2mssql, argv[1:])

@@ -1,15 +1,15 @@
-from distutils.core import setup
+﻿from distutils.core import setup
 
 setup(
-    name = "xls2db",
+    name = "xls2mssql",
     version = "0.0.8",
-    packages = ["xls2db"],
-    install_requires = ['xlrd', 'plac'],
-    description = "Convert excel files following a particular schema into sqlite database files.",
-    author = "Joshua Holbrook",
-    author_email = "josh.holbrook@gmail.com",
-    url = "https://github.com/jesusabdullah/xls2db",
-    keywords = ["excel", "sqlite", "probably_a_bad_idea", "because_f_you_thats_why"],
+    packages = ["xls2mssql"],
+    install_requires = ['xlrd', 'plac', 'adodbapi'],
+    description = "Convert excel files following a particular schema into SQL Server database (MSSQL)",
+    author = "Joshua Holbrook modified by Maxime Résibois",
+    author_email = "josh.holbrook@gmail.com, maxime.resibois@gmail.com",
+    url = "https://github.com/jesusabdullah/xls2db ; https://github.com/Bescu/xls2mssql",
+    keywords = ["excel", "mssql"],
     classifiers = [
         "Programming Language :: Python",
         "Development Status :: 2 - Pre-Alpha",
@@ -19,37 +19,21 @@ setup(
         "Programming Language :: Python :: 2.7", #only one tested
         "Topic :: Other/Nonlisted Topic"
     ],
-    scripts = ["./bin/xls2db"],
+    scripts = ["./bin/xls2mssql"],
     long_description = """\
-xls2db
+xls2mssql
 ======
 
-xls2db is a python program that takes an excel spreadsheet following a certain
-schema into an sqlite database that can be opened using python's sqlite3 module.
-It can also be used as a module.
+This is a adaptation of the source code of Joshua Holbrook, xls2db in order to import a xls into a SQL Server database instead of a sqlite database.
 
-Why??
+Requirements
 -----
 
-Because fuck you, that's why.
+The module Adodapi need to be installed
 
-But seriously: I was getting sick of doing data entry for this toy project of
-mine using cursor.execute()'s, so I figured I'd try entering the data into an
-excel spreadsheet, converting it into the db, and then manipulating it from
-there. Crazy, I know.
+Documentation
+-----
 
-Usage:
---------
-
-As a script::
-
-    xls2db infile.xls outfile.db
-
-As a module::
-
-    from xls2db import xls2db
-    xls2db("infile.xls", "outfile.db")
-
-For more, visit <https://github.com/jesusabdullah/xls2db> .
+See the xls2db documentation to learn more about this module
     """
 )

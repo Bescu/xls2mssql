@@ -11,4 +11,4 @@ The module Adodapi need to be installed
 Documentation
 -----
 
-See the xls2db documentation to learn more about this module
+See the xls2db documentation to learn more about this module : https://github.com/jfhbrook/xls2db
